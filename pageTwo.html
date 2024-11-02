@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Ordered List with Descriptions</title>
+    <script src="scriptTwo.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Get Recced</h1>
+    </header>
+    
+    <main>
+        <p>Let's recommend some stuff.</p>
+        <div>
+            <label for="titleInput">Enter your title:</label>
+            <input type="text" id="titleInput" placeholder="Type here...">
+            <button type="button" onclick="addTitle()">Add Title</button>
+        </div>
+
+        <!-- Title Display Area -->
+        <div id="titleDisplay" style="margin-top: 20px; font-weight: bold;"></div>
+
+        <p>Now write down your recs and add a short description for each item.</p>
+        <label for="itemInput">Item:</label>
+        <input type="text" id="itemInput" placeholder="Type an item...">
+
+        <label for="descInput">Description:</label>
+        <textarea id="descInput" placeholder="Type a description..." rows="4" cols="30"></textarea>
+
+        <button onclick="addItem()">Add to List</button>
+
+        <ol id="orderedList">
+            <!-- New items with descriptions will be added here -->
+        </ol>
+        <button onclick="window.location.href='pageThree.html'">Make List!</button>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
+
+</body>
+</html>
