@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Ordered List with Descriptions</title>
+    <title>Input Your Rec List</title>
     <script src="scriptTwo.js" defer></script>
 </head>
 <body>
@@ -28,12 +28,16 @@
 
         <label for="descInput">Description:</label>
         <textarea id="descInput" placeholder="Type a description..." rows="4" cols="30"></textarea>
+        
+        <label for="linkInput">Link:</label> <!-- Add link input -->
+        <input type="text" id="linkInput" placeholder="Type a link...">
 
         <button onclick="addItem()">Add to List</button>
 
         <ol id="orderedList">
             <!-- New items with descriptions will be added here -->
         </ol>
+        
         <button onclick="window.location.href='pageThree.html'">Make List!</button>
     </main>
     

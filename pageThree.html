@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Saved List</title>
+    <title>Display Your Rec List</title>
     <script src="scriptThree.js" defer></script>
+    <!-- html2pdf.js for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+    <!-- html2canvas for PNG generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body>
-    <h1 id="listTitle"></h1>
+    <div id="contentToDownload">
+        <h1 id="listTitle"></h1>
+        <ol id="orderedList"></ol> <!-- Items will be populated here -->
+    </div>
+    
+    <button onclick="goBack()">Start Over</button>
 
-    <ol id="orderedList">
-        <!-- Items will be populated here -->
-    </ol>
-
-    <button onclick="goBack()">Go Back</button>
+    <button id="downloadBtn">Download List</button>
 
 </body>
 </html>
