@@ -2,96 +2,135 @@
 function addTitle() {
     const titleInput = document.getElementById("titleInput").value.trim();
     const titleDisplay = document.getElementById("titleDisplay");
-
-    // Display the title below the title input
+    
     if (titleInput !== "") {
         titleDisplay.textContent = titleInput;
         localStorage.setItem("title", titleInput);
-        document.getElementById("titleInput").value = ""; // Clear the input
+        document.getElementById("titleInput").value = "";
     } else {
         console.warn("Title input is empty. Please enter a title.");
     }
 }
 
-// Function to add item and description, and save to localStorage
+let firstItemAdded = false;
+
 function addItem() {
     const itemInput = document.getElementById("itemInput").value.trim();
     const descInput = document.getElementById("descInput").value.trim();
     const list = document.getElementById("orderedList");
 
-    // Display each item and description below the title
     if (itemInput !== "" && descInput !== "") {
-        // Create list item for display
+        const itemId = `item-${Date.now()}`;
         const listItem = document.createElement("li");
-        listItem.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
+        listItem.id = itemId;
 
-        // Create buttons
+        // Create a container for the content and buttons
+        const itemContainer = document.createElement("div");
+        itemContainer.style.display = "flex";
+        itemContainer.style.alignItems = "center";
+
+        // Add item text to the container
+        itemContainer.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
+
+        // Create buttons for various services
         const googleButton = createIconButton("fab fa-google", () => searchGoogle(itemInput));
         const mapsButton = createIconButton("fas fa-map-marker-alt", () => searchGoogleMaps(itemInput));
         const youtubeButton = createIconButton("fab fa-youtube", () => searchYouTube(itemInput));
         const amazonButton = createIconButton("fab fa-amazon", () => searchAmazon(itemInput));
-
-        // Append buttons to list item
-        listItem.appendChild(googleButton);
-        listItem.appendChild(mapsButton);
-        listItem.appendChild(youtubeButton);
-        listItem.appendChild(amazonButton);
         
-        list.appendChild(listItem);
+        // Append search buttons to the item container
+        itemContainer.appendChild(googleButton);
+        itemContainer.appendChild(mapsButton);
+        itemContainer.appendChild(youtubeButton);
+        itemContainer.appendChild(amazonButton);
 
-        // Create link input field
+        // Link input and button
         const linkInput = document.createElement("input");
         linkInput.type = "text";
         linkInput.placeholder = "Enter link";
 
-        // Create "Add Link" button
         const addLinkButton = document.createElement("button");
         addLinkButton.textContent = "Add Link";
-
-        // Create a placeholder for the link to be added
         const linkDisplay = document.createElement("span");
+        linkDisplay.style.marginLeft = "10px"; // Ensure there's space between the link and buttons
 
-        // Add event listener to the "Add Link" button
+        // Initialize the item object with the basic information
+        const itemObject = {
+            id: itemId,
+            item: itemInput,
+            description: descInput,
+            link: null // Initialize with no link
+        };
+
+        // Log item object
+        console.log("Item object before saving:", itemObject);
+
+        // Save the new item to localStorage
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        items.push(itemObject);
+        localStorage.setItem("items", JSON.stringify(items));
+
+
         addLinkButton.onclick = () => {
             const linkValue = linkInput.value.trim();
             if (linkValue) {
                 const link = document.createElement("a");
                 link.href = linkValue;
                 link.textContent = "Link";
-                link.target = "_blank"; // Open link in a new tab
-                linkDisplay.innerHTML = ""; // Clear previous links
-                linkDisplay.appendChild(link); // Append the clickable link
-                
-                // Save the item, description, and link to localStorage
-                const items = JSON.parse(localStorage.getItem("items")) || [];
-                items.push({ item: itemInput, description: descInput, link: linkValue });
-                localStorage.setItem("items", JSON.stringify(items));
-                
-                // Show a message if a link was added
+                link.target = "_blank";
+                linkDisplay.innerHTML = ""; // Clear previous link display
+                linkDisplay.appendChild(link);
+
                 const message = document.createElement("p");
                 message.textContent = "Link added!";
-                message.style.color = "green"; // Optional: make the message green
+                message.style.color = "green";
                 document.body.appendChild(message);
-                setTimeout(() => message.remove(), 2000); // Remove message after 2 seconds
-                
-                // Hide the link input field and button
+                setTimeout(() => message.remove(), 2000);
+
+                // Update the item object with the link value
+                itemObject.link = linkValue;
+
+                // Save the new item to localStorage with the link
+                const items = JSON.parse(localStorage.getItem("items")) || [];
+                items.push(itemObject);
+                localStorage.setItem("items", JSON.stringify(items));
+
                 linkInput.style.display = "none";
                 addLinkButton.style.display = "none";
-
-                // Clear the link input field
-                linkInput.value = ""; 
+                linkInput.value = "";
             } else {
                 console.warn("Link input is empty. Please enter a link.");
             }
         };
 
-        // Append elements to the list item
-        listItem.appendChild(linkInput);
-        listItem.appendChild(addLinkButton);
-        listItem.appendChild(linkDisplay); // Append link display area
+        // Append the link input, add link button, link display, and delete button to the container
+        itemContainer.appendChild(linkInput);
+        itemContainer.appendChild(addLinkButton);
+        itemContainer.appendChild(linkDisplay);
+
+        // Create delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add Font Awesome trash icon
+        deleteButton.style.marginLeft = "10px"; // Optional spacing
+        deleteButton.onclick = () => deleteItem(itemId);
+        
+        // Append the delete button to the container
+        itemContainer.appendChild(deleteButton);
+
+        // Append the entire container to the list item
+        listItem.appendChild(itemContainer);
         list.appendChild(listItem);
 
-        // Clear the item and description input fields
+        if (!firstItemAdded) {
+            const messageParagraph = document.createElement("p");
+            messageParagraph.id = "linkMessage";
+            messageParagraph.textContent = "Now add a handy link for each item. Use the buttons to search, or add your own!";
+            messageParagraph.style.marginTop = "20px";
+            list.parentNode.insertBefore(messageParagraph, list);
+            firstItemAdded = true;
+        }
+
+        // Clear input fields
         document.getElementById("itemInput").value = "";
         document.getElementById("descInput").value = "";
     } else {
@@ -99,61 +138,80 @@ function addItem() {
     }
 }
 
+// Function to delete item from the DOM and update localStorage
+function deleteItem(itemId) {
+    // Remove item from the DOM
+    const listItem = document.getElementById(itemId);
+    if (listItem) {
+        listItem.remove();
+    }
+
+    // Remove item from localStorage
+    const items = JSON.parse(localStorage.getItem("items")) || [];
+    const updatedItems = items.filter(item => item.id !== itemId); // Filter out the deleted item
+    localStorage.setItem("items", JSON.stringify(updatedItems)); // Save the updated list back to localStorage
+}
+
 // Function to load saved title and items from localStorage
 function loadFromLocalStorage() {
-    // Load and display title
     const savedTitle = localStorage.getItem("title");
     if (savedTitle) {
         document.getElementById("titleDisplay").textContent = savedTitle;
     }
 
-    // Load and display items
     const savedItems = JSON.parse(localStorage.getItem("items")) || [];
     const list = document.getElementById("orderedList");
+    
     savedItems.forEach(itemObj => {
         const listItem = document.createElement("li");
-        listItem.innerHTML = `<strong>${itemObj.item}</strong>: ${itemObj.description}`;
-        
-        // Create link display area
+        listItem.id = itemObj.id;
+
+        // Create a container for the content and buttons
+        const itemContainer = document.createElement("div");
+        itemContainer.style.display = "flex";  // Ensure items are aligned in a row
+        itemContainer.style.alignItems = "center";  // Center align the items vertically
+
+        // Add item text to the container
+        itemContainer.innerHTML = `<strong>${itemObj.item}</strong>: ${itemObj.description}`;
+
         const linkDisplay = document.createElement("span");
+        linkDisplay.style.marginLeft = "10px"; // Ensure there's space between the description and the link
         
-        // If there's a link, add it as a hyperlink
         if (itemObj.link) {
             const link = document.createElement("a");
             link.href = itemObj.link;
             link.textContent = "Link";
-            link.target = "_blank"; // Open link in a new tab
+            link.target = "_blank";
             linkDisplay.appendChild(link);
         }
 
-        listItem.appendChild(linkDisplay); // Append link display area
+        // Append the link display to the container
+        itemContainer.appendChild(linkDisplay);
+
+        // Create and configure the delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add Font Awesome trash icon
+        deleteButton.style.marginLeft = "10px"; // Optional spacing
+        deleteButton.onclick = () => deleteItem(itemObj.id);
+        
+        // Append the delete button to the container
+        itemContainer.appendChild(deleteButton);
+
+        // Append the entire item container to the list item
+        listItem.appendChild(itemContainer);
         list.appendChild(listItem);
     });
 }
 
-// Load data when the page is loaded
-window.onload = loadFromLocalStorage;
-
 // Function to create an icon button
 function createIconButton(iconClass, clickHandler) {
     const button = document.createElement("button");
-    button.innerHTML = `<i class="${iconClass}"></i>`; // Set the icon
-    button.onclick = clickHandler; // Set the click handler
+    button.innerHTML = `<i class="${iconClass}"></i>`;
+    button.onclick = clickHandler;
     return button;
 }
 
-// Search functions for Google, Google Maps, and Amazon
-function searchGoogle(query) {
-    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-    window.open(googleUrl, '_blank');
-}
+// Event listener for the reset button
+document.getElementById("resetBtn").addEventListener("click", deleteList);
 
-function searchGoogleMaps(location) {
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
-    window.open(mapsUrl, '_blank');
-}
-
-function searchAmazon(query) {
-    const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}`;
-    window.open(amazonUrl, '_blank');
-}
+window.onload = loadFromLocalStorage;

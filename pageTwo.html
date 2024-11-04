@@ -6,6 +6,7 @@
     <title>Input Your Rec List</title>
     <script src="scriptTwo.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styleTwo.css">
 </head>
 <body>
     <header>
@@ -36,10 +37,20 @@
             <!-- New items with descriptions will be added here -->
         </ol>
 
-        <!-- Go Back Button -->
-        <button onclick="window.location.href='mainPage.html'">Back to Main</button>
-        
+        <p id="finalMessage" style="display: none; font-weight: bold;"></p>
+
+        <p>Looking good! Now check out the final list.</p>
+        <!-- Make List Button-->
         <button onclick="window.location.href='pageThree.html'">Make List!</button>
+
+        <p>Not what you imagined? Let's try again.</p>
+        <!-- Reset Button -->
+        <button id="resetBtn">Reset</button>
+
+        <p>Stuck? Confused? Let's check out the tutorial again.</p>
+        <!-- Go Back Button -->
+        <button onclick="goBackToMain()">Back to Main</button>
+
     </main>
     
     <footer>

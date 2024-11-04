@@ -1,0 +1,17 @@
+.container {
+    display: flex; /* Create a flex container */
+    justify-content: space-between; /* Space between columns */
+}
+.input-column {
+    flex: 2; /* Make this column wider */
+    padding: 20px;
+}
+.title-column {
+    flex: 1; /* Make this column narrower */
+    padding: 20px;
+    border-left: 2px solid #ccc; /* Optional: add a border to separate columns */
+}
+
+    li {
+        cursor: move; /* Indicate that the item can be moved */
+    }
