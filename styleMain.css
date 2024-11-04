@@ -1,0 +1,72 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #0b3954ff;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #e7efc5ff; /* Use the same background color as the wrapper */
+  color: #ff6663ff;
+  text-align: center; /* Center text horizontally */
+}
+
+.site-wrapper {
+  min-height: 100vh; /* Makes the wrapper at least the height of the viewport */
+  display: flex; /* Enable flexbox layout */
+  flex-direction: column; /* Align children in a column */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+}
+
+.inner {
+  padding: 30px;
+  text-align: center; /* Center text inside the inner container */
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+
+/*
+ * Footer
+ */
+
+footer {
+  margin-top: 20px; /* Optional: Space above the footer */
+}
+
+/*
+ * Button Styles
+ */
+
+button {
+  padding: 10px 20px; /* Adjust button padding */
+  font-weight: bold;
+  color: #ff6663ff;
+  border: 1px solid #ff6663ff;
+  background-color: #e7efc5ff;
+}
+
+button:hover {
+  color: #bfd7b5ff;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fb9f89ff;
+  border: 1px solid #fb9f89ff;
+}

@@ -11,10 +11,10 @@
 <body>
     <header>
         <h1>Get Recced</h1>
+        <p>Let's recommend some stuff.</p>
     </header>
     
     <main>
-        <p>Let's recommend some stuff.</p>
         <div>
             <label for="titleInput">Enter your title:</label>
             <input type="text" id="titleInput" placeholder="Type here...">
@@ -39,18 +39,24 @@
 
         <p id="finalMessage" style="display: none; font-weight: bold;"></p>
 
-        <p>Looking good! Now check out the final list.</p>
-        <!-- Make List Button-->
-        <button onclick="window.location.href='pageThree.html'">Make List!</button>
-
-        <p>Not what you imagined? Let's try again.</p>
-        <!-- Reset Button -->
-        <button id="resetBtn">Reset</button>
-
-        <p>Stuck? Confused? Let's check out the tutorial again.</p>
-        <!-- Go Back Button -->
-        <button onclick="goBackToMain()">Back to Main</button>
-
+        <div class="button-container">
+            <div class="button-group">
+                <p>Looking good! Check out the final list.</p>
+                <!-- Make List Button-->
+                <button onclick="window.location.href='pageThree.html'">Make List!</button>
+            </div>
+            <div class="button-group">
+                <p>Not what you imagined? Try, try again.</p>
+                <!-- Reset Button -->
+                <button id="resetBtn">Reset</button>
+            </div>
+            <div class="button-group">
+                <p>Stuck? Confused? Check out the tutorial again.</p>
+                <!-- Go Back Button -->
+                <button onclick="goBackToMain()">Back to Main</button>
+            </div>
+        </div>
+        
     </main>
     
     <footer>

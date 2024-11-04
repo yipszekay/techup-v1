@@ -211,7 +211,24 @@ function createIconButton(iconClass, clickHandler) {
     return button;
 }
 
+// Function to reset the entire list, clear inputs, and redirect
+function deleteList() {
+    // Clear localStorage for items
+    localStorage.clear(); // Clear all localStorage items
+
+    // Redirect to a clean version of pageTwo
+    window.location.href = 'pageTwo.html'; // Change this to the correct URL for your clean pageTwo
+}
+
 // Event listener for the reset button
 document.getElementById("resetBtn").addEventListener("click", deleteList);
+
+function goBackToMain() {
+    // Clear local storage
+    localStorage.clear();
+    
+    // Redirect to mainPage.html
+    window.location.href = 'mainPage.html';
+}
 
 window.onload = loadFromLocalStorage;

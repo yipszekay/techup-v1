@@ -1,17 +1,109 @@
-.container {
-    display: flex; /* Create a flex container */
-    justify-content: space-between; /* Space between columns */
-}
-.input-column {
-    flex: 2; /* Make this column wider */
-    padding: 20px;
-}
-.title-column {
-    flex: 1; /* Make this column narrower */
-    padding: 20px;
-    border-left: 2px solid #ccc; /* Optional: add a border to separate columns */
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #0b3954ff;
 }
 
-    li {
-        cursor: move; /* Indicate that the item can be moved */
-    }
+/*
+ * Base structure
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 20px;
+  height: 100%;
+  background-color: #e7efc5ff; /* Use the same background color as the wrapper */
+  color: #ff6663ff;
+  text-align: left; 
+}
+
+.container {
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /* Arrange children vertically */
+    min-height: 100vh; /* Ensure it takes full height of the viewport */
+}
+
+.site-wrapper {
+  min-height: 100vh; /* Makes the wrapper at least the height of the viewport */
+  display: flex; /* Enable flexbox layout */
+  flex-direction: column; /* Align children in a column */
+  align-items: left;
+  justify-content: center; /* Center content vertically */
+}
+
+.inner {
+  padding: 30px;
+  text-align: center; /* Center text inside the inner container */
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+
+/*
+ * Header
+ */
+
+header {
+    margin-bottom: 20px;
+    padding: 10px 0; /* Add some padding for better spacing */
+    position: relative; /* Ensure relative positioning */
+    text-align: center;
+}
+
+/*
+ * Footer
+ */
+
+footer {
+  margin-top: 20px; /* Optional: Space above the footer */
+  padding: 10px 0; /* Add some padding for better spacing */
+  position: relative; /* Ensure relative positioning */
+  text-align: center;
+  }
+
+/*
+ * Button Styles
+ */
+
+button {
+  padding: 10px 20px; /* Adjust button padding */
+  font-weight: bold;
+  color: #ff6663ff;
+  border: 1px solid #ff6663ff;
+  background-color: #e7efc5ff;
+}
+
+.button-container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center align the buttons */
+    gap: 200px; /* Optional: space between buttons */
+    margin: 20px 0; /* Optional: margin for spacing */
+    margin-top: 200px;
+}
+
+.button-group {
+    text-align: center; /* Center align text within each button group */
+}
+
+.button-group p {
+    margin: 0; /* Remove default margin from paragraphs */
+    margin-bottom: 5px; /* Optional: space between the label and button */
+}
+
+button:hover {
+  color: #bfd7b5ff;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fb9f89ff;
+  border: 1px solid #fb9f89ff;
+}
