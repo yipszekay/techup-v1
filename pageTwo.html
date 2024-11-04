@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Your Rec List</title>
     <script src="scriptTwo.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -28,15 +29,15 @@
 
         <label for="descInput">Description:</label>
         <textarea id="descInput" placeholder="Type a description..." rows="4" cols="30"></textarea>
-        
-        <label for="linkInput">Link:</label> <!-- Add link input -->
-        <input type="text" id="linkInput" placeholder="Type a link...">
 
         <button onclick="addItem()">Add to List</button>
-
+            
         <ol id="orderedList">
             <!-- New items with descriptions will be added here -->
         </ol>
+
+        <!-- Go Back Button -->
+        <button onclick="window.location.href='mainPage.html'">Back to Main</button>
         
         <button onclick="window.location.href='pageThree.html'">Make List!</button>
     </main>

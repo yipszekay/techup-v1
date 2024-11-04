@@ -13,7 +13,7 @@ function addTitle() {
     }
 }
 
-// Function to add item, description, and link, and save to localStorage
+// Function to add item and description, and save to localStorage
 function addItem() {
     const itemInput = document.getElementById("itemInput").value.trim();
     const descInput = document.getElementById("descInput").value.trim();
@@ -25,45 +25,81 @@ function addItem() {
         const listItem = document.createElement("li");
         listItem.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
 
-        // Create YouTube button
-        const youtubeButton = document.createElement("button");
-        youtubeButton.textContent = "YouTube Search";
-        youtubeButton.onclick = () => searchYouTube(itemInput); // Set up the YouTube search function
+        // Create buttons
+        const googleButton = createIconButton("fab fa-google", () => searchGoogle(itemInput));
+        const mapsButton = createIconButton("fas fa-map-marker-alt", () => searchGoogleMaps(itemInput));
+        const youtubeButton = createIconButton("fab fa-youtube", () => searchYouTube(itemInput));
+        const amazonButton = createIconButton("fab fa-amazon", () => searchAmazon(itemInput));
 
-        // Create the link input
-        const linkInput = document.createElement("input");
-        linkInput.type = "text";
-        linkInput.placeholder = "Link";
-
-        // Append elements to the list item
+        // Append buttons to list item
+        listItem.appendChild(googleButton);
+        listItem.appendChild(mapsButton);
         listItem.appendChild(youtubeButton);
-        listItem.appendChild(linkInput);
+        listItem.appendChild(amazonButton);
+        
         list.appendChild(listItem);
 
-        // Save the item, description, and link to localStorage
-        const items = JSON.parse(localStorage.getItem("items")) || [];
-        // Capture the link value correctly when saving
-        items.push({ item: itemInput, description: descInput, link: linkInput.value });
-        localStorage.setItem("items", JSON.stringify(items));
+        // Create link input field
+        const linkInput = document.createElement("input");
+        linkInput.type = "text";
+        linkInput.placeholder = "Enter link";
 
-        // Show a message if a link was added
-        if (linkInput) {
-            const message = document.createElement("p");
-            message.textContent = "Link added!";
-            message.style.color = "green"; // Optional: make the message green
-            document.body.appendChild(message);
-            setTimeout(() => message.remove(), 2000); // Remove message after 2 seconds
-        }
+        // Create "Add Link" button
+        const addLinkButton = document.createElement("button");
+        addLinkButton.textContent = "Add Link";
 
-        // Clear the item, description, and link input fields
+        // Create a placeholder for the link to be added
+        const linkDisplay = document.createElement("span");
+
+        // Add event listener to the "Add Link" button
+        addLinkButton.onclick = () => {
+            const linkValue = linkInput.value.trim();
+            if (linkValue) {
+                const link = document.createElement("a");
+                link.href = linkValue;
+                link.textContent = "Link";
+                link.target = "_blank"; // Open link in a new tab
+                linkDisplay.innerHTML = ""; // Clear previous links
+                linkDisplay.appendChild(link); // Append the clickable link
+                
+                // Save the item, description, and link to localStorage
+                const items = JSON.parse(localStorage.getItem("items")) || [];
+                items.push({ item: itemInput, description: descInput, link: linkValue });
+                localStorage.setItem("items", JSON.stringify(items));
+                
+                // Show a message if a link was added
+                const message = document.createElement("p");
+                message.textContent = "Link added!";
+                message.style.color = "green"; // Optional: make the message green
+                document.body.appendChild(message);
+                setTimeout(() => message.remove(), 2000); // Remove message after 2 seconds
+                
+                // Hide the link input field and button
+                linkInput.style.display = "none";
+                addLinkButton.style.display = "none";
+
+                // Clear the link input field
+                linkInput.value = ""; 
+            } else {
+                console.warn("Link input is empty. Please enter a link.");
+            }
+        };
+
+        // Append elements to the list item
+        listItem.appendChild(linkInput);
+        listItem.appendChild(addLinkButton);
+        listItem.appendChild(linkDisplay); // Append link display area
+        list.appendChild(listItem);
+
+        // Clear the item and description input fields
         document.getElementById("itemInput").value = "";
         document.getElementById("descInput").value = "";
-        document.getElementById("linkInput").value = ""; // Clear link input
     } else {
         console.warn("Item or description input is empty. Please enter both fields.");
     }
+}
 
-// Function to load saved title, items, and link from localStorage
+// Function to load saved title and items from localStorage
 function loadFromLocalStorage() {
     // Load and display title
     const savedTitle = localStorage.getItem("title");
@@ -77,16 +113,20 @@ function loadFromLocalStorage() {
     savedItems.forEach(itemObj => {
         const listItem = document.createElement("li");
         listItem.innerHTML = `<strong>${itemObj.item}</strong>: ${itemObj.description}`;
-
+        
+        // Create link display area
+        const linkDisplay = document.createElement("span");
+        
         // If there's a link, add it as a hyperlink
         if (itemObj.link) {
             const link = document.createElement("a");
             link.href = itemObj.link;
             link.textContent = "Link";
             link.target = "_blank"; // Open link in a new tab
-            listItem.appendChild(link);
+            linkDisplay.appendChild(link);
         }
 
+        listItem.appendChild(linkDisplay); // Append link display area
         list.appendChild(listItem);
     });
 }
@@ -94,8 +134,26 @@ function loadFromLocalStorage() {
 // Load data when the page is loaded
 window.onload = loadFromLocalStorage;
 
-function searchYouTube(item) {
-    const query = encodeURIComponent(`${item}`);
-    const youtubeUrl = `https://www.youtube.com/results?search_query=${query}`;
-    window.open(youtubeUrl, '_blank');
+// Function to create an icon button
+function createIconButton(iconClass, clickHandler) {
+    const button = document.createElement("button");
+    button.innerHTML = `<i class="${iconClass}"></i>`; // Set the icon
+    button.onclick = clickHandler; // Set the click handler
+    return button;
+}
+
+// Search functions for Google, Google Maps, and Amazon
+function searchGoogle(query) {
+    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    window.open(googleUrl, '_blank');
+}
+
+function searchGoogleMaps(location) {
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+    window.open(mapsUrl, '_blank');
+}
+
+function searchAmazon(query) {
+    const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}`;
+    window.open(amazonUrl, '_blank');
 }

@@ -7,23 +7,25 @@ function displayList() {
     // Display the title
     document.getElementById("listTitle").textContent = title;
 
-    // Display each item, description, and link in the ordered list
+   // Display each item, description, and link in the ordered list
     const list = document.getElementById("orderedList");
+    list.innerHTML = ""; // Clear the list before adding items to avoid duplication
+
     items.forEach(({ item, description, link }) => {
         const listItem = document.createElement("li");
         listItem.innerHTML = `<strong>${item}</strong>: ${description}`;
-        
-        // If there's a link, add it as a hyperlink
-        if (link) {
-            const linkElement = document.createElement("a");
-            linkElement.href = link;
-            linkElement.textContent = "Link";
-            linkElement.target = "_blank"; // Open link in a new tab
-            listItem.appendChild(linkElement);
-        }
 
-        list.appendChild(listItem);
-    });
+    // If there's a link, add it as a hyperlink
+    if (link) {
+        const linkElement = document.createElement("a");
+        linkElement.href = link;
+        linkElement.textContent = "Link";
+        linkElement.target = "_blank"; // Open link in a new tab
+        listItem.appendChild(linkElement);
+    }
+
+    list.appendChild(listItem);
+});
 }
 
 // Load data when the page is loaded
