@@ -33,10 +33,6 @@ function addItem() {
         itemRow.className = "item-row";
         itemRow.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
 
-        // Row 2: Display buttons and link elements
-        const buttonRow = document.createElement("div");
-        buttonRow.className = "button-row";
-
         // Link input and button
         const linkInput = document.createElement("input");
         linkInput.type = "text";
@@ -44,8 +40,21 @@ function addItem() {
 
         const addLinkButton = document.createElement("button");
         addLinkButton.textContent = "Add Link";
+
         const linkDisplay = document.createElement("span");
         linkDisplay.style.marginLeft = "10px"; // Ensure there's space between the link and buttons
+
+        // Create delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add Font Awesome trash icon
+        deleteButton.style.marginLeft = "10px"; // Optional spacing
+        deleteButton.onclick = () => deleteItem(itemId);
+
+         // Append all elements to itemRow
+         itemRow.appendChild(linkInput);
+         itemRow.appendChild(addLinkButton);
+         itemRow.appendChild(linkDisplay);
+         itemRow.appendChild(deleteButton);
 
         // Initialize the item object with the basic information
         const itemObject = {
@@ -68,13 +77,7 @@ function addItem() {
                 link.target = "_blank";
                 linkDisplay.innerHTML = ""; // Clear previous link display
                 linkDisplay.appendChild(link);
-
-                const message = document.createElement("p");
-                message.textContent = "Link added!";
-                message.style.color = "green";
-                document.body.appendChild(message);
-                setTimeout(() => message.remove(), 2000);
-
+                
                 // Update the item object with the link value
                 itemObject.link = linkValue;
 
@@ -83,13 +86,26 @@ function addItem() {
                 items.push(itemObject);
                 localStorage.setItem("items", JSON.stringify(items));
 
+                // Hide the link input, add link button, and search buttons after successful link addition
                 linkInput.style.display = "none";
                 addLinkButton.style.display = "none";
+
+                // Hide all search buttons
+                const searchButtons = buttonRow.querySelectorAll("button");
+                searchButtons.forEach(button => {
+                    button.style.display = "none";
+                });
+
+                // Clear the input field for the next entry
                 linkInput.value = "";
             } else {
                 console.warn("Link input is empty. Please enter a link.");
             }
         };
+
+        // Row 2: Display buttons and link elements
+        const buttonRow = document.createElement("div");
+        buttonRow.className = "button-row";
 
         // Create buttons for various services
         const googleButton = createIconButton("fab fa-google", () => searchGoogle(itemInput));
@@ -108,25 +124,9 @@ function addItem() {
         items.push(itemObject);
         localStorage.setItem("items", JSON.stringify(items));
 
-        // Create delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add Font Awesome trash icon
-        deleteButton.style.marginLeft = "10px"; // Optional spacing
-        deleteButton.onclick = () => deleteItem(itemId);
-        
-        // Append the delete button to buttonRow
-        buttonRow.appendChild(deleteButton);
-
-        // Append itemRow and buttonRow to itemContainer
-        itemContainer.appendChild(itemRow);  // Append itemRow first
-        itemContainer.appendChild(buttonRow); // Then append buttonRow
-
-        // Append the link input, add link button, and link display to the container
-        itemContainer.appendChild(linkInput);
-        itemContainer.appendChild(addLinkButton);
-        itemContainer.appendChild(linkDisplay);
-
-        // Append the itemContainer to the list item
+        // Append rows to item container and then to list item
+        itemContainer.appendChild(itemRow);
+        itemContainer.appendChild(buttonRow);
         listItem.appendChild(itemContainer);
         list.appendChild(listItem);
 

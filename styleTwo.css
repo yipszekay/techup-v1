@@ -49,7 +49,14 @@ header, footer {
   gap: 20px;
   margin-top: 20px;
 }
-
+/* Button Group as Center-Aligned Columns */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-aligns button and text within each group */
+  text-align: center;
+  width: 33%; /* Ensure each group takes up a third of the container */
+}
 button {
   padding: 10px 20px;
   font-weight: bold;
