@@ -4,7 +4,7 @@ function addTitle() {
     const titleDisplay = document.getElementById("titleDisplay");
     
     if (titleInput !== "") {
-        titleDisplay.textContent = titleInput;
+        titleDisplay.textContent = titleInput; // Display the title on the right
         localStorage.setItem("title", titleInput);
         document.getElementById("titleInput").value = "";
     } else {
@@ -24,25 +24,18 @@ function addItem() {
         const listItem = document.createElement("li");
         listItem.id = itemId;
 
-        // Create a container for the content and buttons
+        // Create container for item rows
         const itemContainer = document.createElement("div");
-        itemContainer.style.display = "flex";
-        itemContainer.style.alignItems = "center";
+        itemContainer.className = "item-container";
 
-        // Add item text to the container
-        itemContainer.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
+        // Row 1: Display item and description
+        const itemRow = document.createElement("div");
+        itemRow.className = "item-row";
+        itemRow.innerHTML = `<strong>${itemInput}</strong>: ${descInput}`;
 
-        // Create buttons for various services
-        const googleButton = createIconButton("fab fa-google", () => searchGoogle(itemInput));
-        const mapsButton = createIconButton("fas fa-map-marker-alt", () => searchGoogleMaps(itemInput));
-        const youtubeButton = createIconButton("fab fa-youtube", () => searchYouTube(itemInput));
-        const amazonButton = createIconButton("fab fa-amazon", () => searchAmazon(itemInput));
-        
-        // Append search buttons to the item container
-        itemContainer.appendChild(googleButton);
-        itemContainer.appendChild(mapsButton);
-        itemContainer.appendChild(youtubeButton);
-        itemContainer.appendChild(amazonButton);
+        // Row 2: Display buttons and link elements
+        const buttonRow = document.createElement("div");
+        buttonRow.className = "button-row";
 
         // Link input and button
         const linkInput = document.createElement("input");
@@ -65,12 +58,7 @@ function addItem() {
         // Log item object
         console.log("Item object before saving:", itemObject);
 
-        // Save the new item to localStorage
-        const items = JSON.parse(localStorage.getItem("items")) || [];
-        items.push(itemObject);
-        localStorage.setItem("items", JSON.stringify(items));
-
-
+        // Add link button click handler
         addLinkButton.onclick = () => {
             const linkValue = linkInput.value.trim();
             if (linkValue) {
@@ -103,10 +91,22 @@ function addItem() {
             }
         };
 
-        // Append the link input, add link button, link display, and delete button to the container
-        itemContainer.appendChild(linkInput);
-        itemContainer.appendChild(addLinkButton);
-        itemContainer.appendChild(linkDisplay);
+        // Create buttons for various services
+        const googleButton = createIconButton("fab fa-google", () => searchGoogle(itemInput));
+        const mapsButton = createIconButton("fas fa-map-marker-alt", () => searchGoogleMaps(itemInput));
+        const youtubeButton = createIconButton("fab fa-youtube", () => searchYouTube(itemInput));
+        const amazonButton = createIconButton("fab fa-amazon", () => searchAmazon(itemInput));
+        
+        // Append search buttons to buttonRow 
+        buttonRow.appendChild(googleButton);
+        buttonRow.appendChild(mapsButton);
+        buttonRow.appendChild(youtubeButton);
+        buttonRow.appendChild(amazonButton);
+
+        // Save the new item to localStorage
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        items.push(itemObject);
+        localStorage.setItem("items", JSON.stringify(items));
 
         // Create delete button
         const deleteButton = document.createElement("button");
@@ -114,13 +114,23 @@ function addItem() {
         deleteButton.style.marginLeft = "10px"; // Optional spacing
         deleteButton.onclick = () => deleteItem(itemId);
         
-        // Append the delete button to the container
-        itemContainer.appendChild(deleteButton);
+        // Append the delete button to buttonRow
+        buttonRow.appendChild(deleteButton);
 
-        // Append the entire container to the list item
+        // Append itemRow and buttonRow to itemContainer
+        itemContainer.appendChild(itemRow);  // Append itemRow first
+        itemContainer.appendChild(buttonRow); // Then append buttonRow
+
+        // Append the link input, add link button, and link display to the container
+        itemContainer.appendChild(linkInput);
+        itemContainer.appendChild(addLinkButton);
+        itemContainer.appendChild(linkDisplay);
+
+        // Append the itemContainer to the list item
         listItem.appendChild(itemContainer);
         list.appendChild(listItem);
 
+        // Display message if it's the first item added
         if (!firstItemAdded) {
             const messageParagraph = document.createElement("p");
             messageParagraph.id = "linkMessage";
@@ -211,6 +221,23 @@ function createIconButton(iconClass, clickHandler) {
     return button;
 }
 
+// Function to search Google
+function searchGoogle(query) {
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+}
+// Function to search Google Maps
+function searchGoogleMaps(query) {
+    window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}`, '_blank');
+}
+// Function to search YouTube
+function searchYouTube(query) {
+    window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`, '_blank');
+}
+// Function to search Amazon
+function searchAmazon(query) {
+    window.open(`https://www.amazon.com/s?k=${encodeURIComponent(query)}`, '_blank');
+}
+
 // Function to reset the entire list, clear inputs, and redirect
 function deleteList() {
     // Clear localStorage for items
@@ -221,6 +248,11 @@ function deleteList() {
 }
 
 // Event listener for the reset button
+const resetBtn = document.getElementById("resetBtn");
+if (resetBtn) {
+    resetBtn.addEventListener("click", deleteList);
+}
+
 document.getElementById("resetBtn").addEventListener("click", deleteList);
 
 function goBackToMain() {
