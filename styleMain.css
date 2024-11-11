@@ -18,24 +18,26 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #e7efc5ff; /* Use the same background color as the wrapper */
-  color: #ff6663ff;
+  background-color: #faefe6; /* Use the same background color as the wrapper */
+  color: #d46bca;
   text-align: center; /* Center text horizontally */
+  font-family: 'Hagrid Trial', sans-serif;
 }
 
-.site-wrapper {
-  min-height: 100vh; /* Makes the wrapper at least the height of the viewport */
-  display: flex; /* Enable flexbox layout */
-  flex-direction: column; /* Align children in a column */
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.inner {
-  padding: 30px;
-  text-align: center; /* Center text inside the inner container */
+#welcome {
+  font-family: 'Hagrid Text Trial', sans-serif;
+  text-align: center;
+  position: fixed;
+  top: 20px;
 }
-
 /*
  * Cover
  */
@@ -49,7 +51,10 @@ body {
  */
 
 footer {
-  margin-top: 20px; /* Optional: Space above the footer */
+  font-family: 'Hagrid Trial', sans-serif;
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
 }
 
 /*
@@ -59,14 +64,55 @@ footer {
 button {
   padding: 10px 20px; /* Adjust button padding */
   font-weight: bold;
-  color: #ff6663ff;
-  border: 1px solid #ff6663ff;
-  background-color: #e7efc5ff;
+  color: #fd883d;
+  border: 1px solid #fd883d;
+  background-color: #faefe6;
 }
 
 button:hover {
-  color: #bfd7b5ff;
+  color: #faefe6;
   text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fb9f89ff;
-  border: 1px solid #fb9f89ff;
+  background-color: #fd883d;
+  border: 1px solid #fd883d;
+}
+
+.blue {
+  color: #fd883d;
+  background: none;
+}
+
+.cover-heading {
+  color: #ff6663ff;
+  animation: float 3s ease-in-out infinite;
+  font-family: 'Hagrid Text Trial', sans-serif;
+}
+
+@keyframes float {
+  0% {
+      transform: translateY(0);
+  }
+
+  50% {
+      transform: translateY(-10px);
+  }
+
+  100% {
+      transform: translateY(0);
+  }
+}
+
+.instruction {
+  color: #191919;
+  font-style: italic;
+  font-family: Trebuchet MS;
+}
+
+button {
+  font-family: inherit;
+}
+
+.maintext {
+  max-width: 600px; /* Optional: limits width of content */
+  margin: auto;
+  text-align: center;
 }

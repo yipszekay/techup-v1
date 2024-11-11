@@ -9,6 +9,19 @@ a:hover {
   color: #0b3954ff;
 }
 
+/* Header, Footer, and Main Content */
+header, footer {
+  width: 100%;
+  background-color: #faefe6;
+  text-align: center;
+  padding: 10px 0;
+}
+
+header {
+  font-family: 'Hagrid Text Trial', sans-serif;
+  color: #ff6663ff;
+}
+
 /*
  * Base structure
  */
@@ -18,9 +31,10 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #e7efc5ff; /* Use the same background color as the wrapper */
-  color: #ff6663ff;
+  background-color: #faefe6; /* Use the same background color as the wrapper */
+  color: #d46bca;
   text-align: center; /* Center text horizontally */
+  font-family: Trebuchet MS;
 }
 
 .site-wrapper {
@@ -50,6 +64,9 @@ body {
 
 footer {
   margin-top: 20px; /* Optional: Space above the footer */
+  font-family: 'Hagrid Trial', sans-serif;
+  position: fixed;
+  bottom: 20px;
 }
 
 /*
@@ -59,14 +76,49 @@ footer {
 button {
   padding: 10px 20px; /* Adjust button padding */
   font-weight: bold;
-  color: #ff6663ff;
-  border: 1px solid #ff6663ff;
-  background-color: #e7efc5ff;
+  color: #fd883d;
+  border: 1px solid #fd883d;
+  background-color: #faefe6;
 }
 
 button:hover {
-  color: #bfd7b5ff;
+  color: #faefe6;
   text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fb9f89ff;
-  border: 1px solid #fb9f89ff;
+  background-color: #fd883d;
+  border: 1px solid #fd883d;
+}
+
+#niceJob {
+  font-family: 'Hagrid Trial', sans-serif;
+}
+
+#orderedList {
+  list-style-type: decimal; /* Ensures the list has numbers */
+  list-style-position: inside; /* Keeps numbers inside each list item */
+  padding: 0;
+  margin: 0 auto; /* Centers the entire ordered list container */
+  text-align: center; /* Centers the list items */
+}
+
+#orderedList li {
+  text-align: center; /* Aligns text within each list item */
+  margin-bottom: 10px; /* Adds space between items */
+}
+
+#goBack {
+  font-family: 'Hagrid Trial', sans-serif;
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+button {
+  font-family: inherit;
+}
+
+.UX {
+  font-family: 'Hagrid Text Trial', sans-serif;
+  color: #fd883d;
 }

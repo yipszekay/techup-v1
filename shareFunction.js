@@ -1,7 +1,12 @@
-document.getElementById('shareListButton').onclick = function() {
+document.getElementById('shareListBtn').onclick = function() {
     const title = localStorage.getItem("title") || "No Title";
     const items = JSON.parse(localStorage.getItem("items")) || [];
-    const listContent = items.map(itemObj => `${itemObj.item}: ${itemObj.description}`).join('\n');
+
+    // Create the list content with links
+    const listContent = items.map(itemObj => {
+        const linkPart = itemObj.link ? ` (Link: ${itemObj.link})` : ""; // Append link if it exists
+        return `${itemObj.item}: ${itemObj.description}${linkPart}`;
+    }).join('\n');
 
     // Format the message for sharing
     const message = `Check out my list: ${title}\n\n${listContent}`;
@@ -27,3 +32,15 @@ document.getElementById('shareListButton').onclick = function() {
         }
     }
 };
+
+// Log the generated list content for debugging
+console.log("List content for sharing:", listContent);
+
+// Format the message for sharing
+const message = `Check out my list: ${title}\n\n${listContent}`;
+
+// Encode the message for use in a URL
+const encodedMessage = encodeURIComponent(message);
+
+// Log the encoded message for debugging
+console.log("Encoded message:", encodedMessage);

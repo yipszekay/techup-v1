@@ -5,20 +5,35 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #e7efc5ff;
-  color: #ff6663ff;
+  background-color: #faefe6;
+  color: #d46bca;
+  font-family: Trebuchet MS;
 }
 
 /* Header, Footer, and Main Content */
 header, footer {
   width: 100%;
-  background-color: #e7efc5ff;
+  background-color: #faefe6;
   text-align: center;
   padding: 10px 0;
 }
 
+header {
+  font-family: 'Hagrid Text Trial', sans-serif;
+  color: #ff6663ff;
+}
+
+footer {
+  font-family: 'Hagrid Trial', sans-serif;
+}
+
+.UX {
+  font-family: 'Hagrid Text Trial', sans-serif;
+  color: #fd883d;
+}
+
 .main-content {
-  margin-top: 60px;
+  margin-top: 10px;
   margin-bottom: 40px;
   padding: 20px;
   flex-grow: 1;
@@ -48,6 +63,7 @@ header, footer {
   justify-content: space-evenly;
   gap: 20px;
   margin-top: 20px;
+  font-family: 'Hagrid Trial', sans-serif;
 }
 /* Button Group as Center-Aligned Columns */
 .button-group {
@@ -60,15 +76,15 @@ header, footer {
 button {
   padding: 10px 20px;
   font-weight: bold;
-  color: #ff6663ff;
-  border: 1px solid #ff6663ff;
-  background-color: #e7efc5ff;
+  color: #fd883d;
+  border: 1px solid #fd883d;
+  background-color: #faefe6;
 }
 
 button:hover {
-  color: #bfd7b5ff;
-  background-color: #fb9f89ff;
-  border: 1px solid #fb9f89ff;
+  color: #faefe6;
+  background-color: #fd883d;
+  border: 1px solid #fd883d;
 }
 
 /* Item Styles */
@@ -97,4 +113,14 @@ button:hover {
   color: #ff6663ff;
   text-decoration: underline;
   font-weight: bold;
+}
+
+.instruction {
+  color: #191919;
+  font-style: italic;
+  font-family: Trebuchet MS;
+}
+
+button {
+  font-family: inherit;
 }

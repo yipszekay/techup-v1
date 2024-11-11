@@ -119,11 +119,6 @@ function addItem() {
         buttonRow.appendChild(youtubeButton);
         buttonRow.appendChild(amazonButton);
 
-        // Save the new item to localStorage
-        const items = JSON.parse(localStorage.getItem("items")) || [];
-        items.push(itemObject);
-        localStorage.setItem("items", JSON.stringify(items));
-
         // Append rows to item container and then to list item
         itemContainer.appendChild(itemRow);
         itemContainer.appendChild(buttonRow);
@@ -135,7 +130,12 @@ function addItem() {
             const messageParagraph = document.createElement("p");
             messageParagraph.id = "linkMessage";
             messageParagraph.textContent = "Now add a handy link for each item. Use the buttons to search, or add your own!";
-            messageParagraph.style.marginTop = "20px";
+            messageParagraph.style.marginTop = "10px";
+            messageParagraph.style.fontStyle = "italic"; // Italicize the message
+            messageParagraph.style.fontFamily = "Trebuchet MS";
+            messageParagraph.style.color = "#191919"; // Change message color
+
+            // Insert the message above the list
             list.parentNode.insertBefore(messageParagraph, list);
             firstItemAdded = true;
         }

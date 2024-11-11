@@ -7,6 +7,7 @@
     <script src="scriptTwo.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styleTwo.css">
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -17,11 +18,13 @@
     <main class="main-content">
         <!-- Left Section for input fields and buttons -->
         <div class="left-section">
+            <h3 class="UX">Step One: Make</h3>
+            <p class="instruction">Let's start with a title for your super cool list. No sweat, you can change it anytime!</p>
             <label for="titleInput">Enter your title:</label>
             <input type="text" id="titleInput" placeholder="Type here...">
             <button type="button" onclick="addTitle()">Add Title</button>
 
-            <p>Now write down your recs and add a short description for each item.</p>
+            <p class="instruction">Now write down your recs, addding a short description for each item.</p>
             <label for="itemInput">Item:</label>
             <input type="text" id="itemInput" placeholder="Type an item...">
 
@@ -33,6 +36,7 @@
 
         <!-- Right Section for displaying title and list items -->
         <div class="right-section">
+            <h3 class="UX">Step Two: Link</h3>
             <!-- Title Display Area -->
             <div id="titleDisplay" style="margin-top: 20px; font-weight: bold;"></div>
 
@@ -45,9 +49,9 @@
     </main>
     <div class="button-container">
         <div class="button-group">
-            <p>Looking good! Check out the final list.</p>
-            <!-- Make List Button-->
-            <button onclick="window.location.href='pageThree.html'">Make List!</button>
+            <p>Stuck? Confused? Check out the tutorial again.</p>
+            <!-- Go Back Button -->
+            <button onclick="goBackToMain()">Back to Main</button>
         </div>
         <div class="button-group">
             <p>Not what you imagined? Try, try again.</p>
@@ -55,14 +59,14 @@
             <button id="resetBtn">Reset</button>
         </div>
         <div class="button-group">
-            <p>Stuck? Confused? Check out the tutorial again.</p>
-            <!-- Go Back Button -->
-            <button onclick="goBackToMain()">Back to Main</button>
+            <p>Looking good! Check out the final list.</p>
+            <!-- Make List Button-->
+            <button onclick="window.location.href='pageThree.html'">Go to Share!</button>
         </div>
     </div>
         
     <footer>
-        <p>&copy; 2024</p>
+        <p>By Sze Kay</p>
     </footer>
 
 </body>

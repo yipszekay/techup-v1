@@ -12,27 +12,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <!-- html2canvas for PNG generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <h1>Get Recced</h1>
+        <p>Let's recommend some stuff.</p>
+    </header>
+
+    <div id="niceJob">
+        <h3 class="UX">Step Three: Share</h3>
+        <p>What an awesome list! Time to share it with the world.</p>
+        <!-- Share List Button -->
+        <button id="shareListBtn">Share List</button>
+        <!-- Download List Button -->
+        <button id="downloadBtn">Download List</button>
+    </div>
+
     <div id="contentToDownload">
         <h1 id="listTitle"></h1>
         <ol id="orderedList"></ol> <!-- Items will be populated here -->
     </div>
 
-    <p>What an awesome list! Time to share it with the world.</p>
-
-    <!-- Share List Button -->
-    <button id="shareListButton">Share List</button>
-    <!-- Download List Button -->
-    <button id="downloadBtn">Download List</button>
-
-    <p>Not feeling it? No worries. Let's try again!</p>
-
-    <button onclick="goBack()">Start Over</button>
+    <br>
+    <div id="goBack">
+        <p>Not feeling it? No worries. Let's try again!</p>
+        <button onclick="goBack()">Start Over</button>
+    </div>
 
     <footer>
-        <p>&copy; 2024</p>
+        <p>By Sze Kay</p>
     </footer>
 </body>
 </html>
