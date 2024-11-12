@@ -259,8 +259,8 @@ function goBackToMain() {
     // Clear local storage
     localStorage.clear();
     
-    // Redirect to mainPage.html
-    window.location.href = 'mainPage.html';
+    // Redirect to index.html
+    window.location.href = 'index.html';
 }
 
 window.onload = loadFromLocalStorage;
