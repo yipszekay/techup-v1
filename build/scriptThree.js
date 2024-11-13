@@ -17,6 +17,8 @@ function displayList() {
             linkElement.textContent = "Link";
             linkElement.target = "_blank"; // Open link in a new tab
             listItem.appendChild(linkElement);
+            linkElement.style.marginLeft = "20px"; 
+            linkElement.style.marginRight = "20px"; 
         }
         list.appendChild(listItem);
     });

@@ -12,6 +12,17 @@ function addTitle() {
     }
 }
 
+// Function to validate URL
+function isValidUrl(url) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // Protocol
+        '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // Domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+        '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // Port and path
+        '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // Query string
+        '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // Fragment locator
+    return !!pattern.test(url);
+}
+
 let firstItemAdded = false;
 
 function addItem() {
@@ -27,7 +38,7 @@ function addItem() {
         // Create container for item rows
         const itemContainer = document.createElement("div");
         itemContainer.className = "item-container";
-
+        
         // Row 1: Display item and description
         const itemRow = document.createElement("div");
         itemRow.className = "item-row";
@@ -37,13 +48,15 @@ function addItem() {
         const linkInput = document.createElement("input");
         linkInput.type = "text";
         linkInput.placeholder = "Enter link";
+        linkInput.style.marginLeft = "20px"; // Adds space between itemRow and linkInput
+        linkInput.style.marginRight = "20px"; // Adds space between itemRow and linkInput
 
         const addLinkButton = document.createElement("button");
         addLinkButton.textContent = "Add Link";
 
         const linkDisplay = document.createElement("span");
         linkDisplay.style.marginLeft = "10px"; // Ensure there's space between the link and buttons
-
+        
         // Create delete button
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add Font Awesome trash icon
@@ -67,39 +80,43 @@ function addItem() {
         // Log item object
         console.log("Item object before saving:", itemObject);
 
+        // Error message for invalid URL
+        const errorMessage = document.createElement("span");
+        errorMessage.style.color = "red";
+        errorMessage.style.marginLeft = "10px";
+        errorMessage.style.display = "none"; // Hide initially
+        errorMessage.textContent = "Please enter a valid URL";
+        
+        // Add error message to itemRow so it shows up near linkInput
+        itemRow.appendChild(errorMessage);
+
         // Add link button click handler
         addLinkButton.onclick = () => {
             const linkValue = linkInput.value.trim();
-            if (linkValue) {
+            
+            // Check if URL is valid
+            if (isValidUrl(linkValue)) {
+                errorMessage.style.display = "none"; // Hide error message if URL is valid
+                
                 const link = document.createElement("a");
                 link.href = linkValue;
                 link.textContent = "Link";
                 link.target = "_blank";
                 linkDisplay.innerHTML = ""; // Clear previous link display
                 linkDisplay.appendChild(link);
-                
-                // Update the item object with the link value
-                itemObject.link = linkValue;
 
-                // Save the new item to localStorage with the link
+                itemObject.link = linkValue;
                 const items = JSON.parse(localStorage.getItem("items")) || [];
                 items.push(itemObject);
                 localStorage.setItem("items", JSON.stringify(items));
 
-                // Hide the link input, add link button, and search buttons after successful link addition
                 linkInput.style.display = "none";
                 addLinkButton.style.display = "none";
+                buttonRow.querySelectorAll("button").forEach(button => button.style.display = "none");
 
-                // Hide all search buttons
-                const searchButtons = buttonRow.querySelectorAll("button");
-                searchButtons.forEach(button => {
-                    button.style.display = "none";
-                });
-
-                // Clear the input field for the next entry
                 linkInput.value = "";
             } else {
-                console.warn("Link input is empty. Please enter a link.");
+                errorMessage.style.display = "inline"; // Show error message if URL is invalid
             }
         };
 

@@ -124,3 +124,7 @@ button:hover {
 button {
   font-family: inherit;
 }
+
+.linkInput {
+  padding-left: 50px; 
+}
